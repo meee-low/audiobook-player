@@ -33,13 +33,14 @@ This file holds the TODOs/Roadmap
 - Keybinds (play, pause, play+pause, background etc.)
 
 ## Data format:
-Chapter: title, position, ... (could be multiple files)
-Book <- files, title, author, cover art ... (finish later)
-Series <- collection of books
-Author <- name
+- Chapter: title, position, ... (could be multiple files)
+- Book <- files, title, author, cover art ... (finish later)
+- Series <- collection of books
+- Author <- name
+
 Progress: position (chapter and time), last played, maximum read timestamp (so user can go back and resume where they left off)
 
-Some way to track progress in different chapters. So if it's an anthology, the user can skip around and still track each chapter.
+Need some way to track progress in different chapters. So if it's an anthology, the user can skip around and still track each chapter.
 
 
 ## Pipedreams:
