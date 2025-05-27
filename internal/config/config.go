@@ -88,13 +88,16 @@ func WriteDefaultConfig(config_path string) {
 	}
 }
 
-func DefaultConfigPath() string {
+func DefaultConfigDir() string {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
 		log.Fatalf("Could not determine home directory: %s", err)
 	}
+	return filepath.Join(homeDir, ".config", "audiobook-player")
+}
 
-	return filepath.Join(homeDir, ".config", "audiobook-player", "config.toml")
+func DefaultConfigPath() string {
+	return filepath.Join(DefaultConfigDir(), "config.toml")
 }
 
 func LoadOrCreateConfig(config_path string) Config {
