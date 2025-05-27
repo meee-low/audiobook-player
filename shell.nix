@@ -6,5 +6,6 @@ pkgs.mkShell {
         go
         pkg-config
         alsa-lib
+        sqlc
     ];
 }
