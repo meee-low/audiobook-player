@@ -1,25 +1,27 @@
--- name: GetAuthor :one
-SELECT * FROM authors
+-- name: GetPerson :one
+SELECT * FROM persons
 WHERE id = ? LIMIT 1;
 
--- name: ListAuthors :many
-SELECT * FROM authors
+-- name: ListPersons :many
+SELECT * FROM persons
 ORDER BY name;
 
--- name: CreateAuthor :one
-INSERT INTO authors (
+-- name: CreatePerson :one
+INSERT INTO persons (
   name
 ) VALUES (
   ?
 )
 RETURNING *;
 
--- name: UpdateAuthor :exec
-UPDATE authors
+-- name: UpdatePerson :exec
+UPDATE persons
 set name = ?
 WHERE id = ?
 RETURNING *;
 
--- name: DeleteAuthor :exec
-DELETE FROM authors
+-- name: DeletePerson :exec
+DELETE FROM persons
 WHERE id = ?;
+
+

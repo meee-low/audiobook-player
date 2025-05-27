@@ -9,8 +9,8 @@ import (
 	"context"
 )
 
-const createAuthor = `-- name: CreateAuthor :one
-INSERT INTO authors (
+const createPerson = `-- name: CreatePerson :one
+INSERT INTO persons (
   name
 ) VALUES (
   ?
@@ -18,49 +18,49 @@ INSERT INTO authors (
 RETURNING id, name
 `
 
-func (q *Queries) CreateAuthor(ctx context.Context, name string) (Author, error) {
-	row := q.db.QueryRowContext(ctx, createAuthor, name)
-	var i Author
+func (q *Queries) CreatePerson(ctx context.Context, name string) (Person, error) {
+	row := q.db.QueryRowContext(ctx, createPerson, name)
+	var i Person
 	err := row.Scan(&i.ID, &i.Name)
 	return i, err
 }
 
-const deleteAuthor = `-- name: DeleteAuthor :exec
-DELETE FROM authors
+const deletePerson = `-- name: DeletePerson :exec
+DELETE FROM persons
 WHERE id = ?
 `
 
-func (q *Queries) DeleteAuthor(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteAuthor, id)
+func (q *Queries) DeletePerson(ctx context.Context, id int64) error {
+	_, err := q.db.ExecContext(ctx, deletePerson, id)
 	return err
 }
 
-const getAuthor = `-- name: GetAuthor :one
-SELECT id, name FROM authors
+const getPerson = `-- name: GetPerson :one
+SELECT id, name FROM persons
 WHERE id = ? LIMIT 1
 `
 
-func (q *Queries) GetAuthor(ctx context.Context, id int64) (Author, error) {
-	row := q.db.QueryRowContext(ctx, getAuthor, id)
-	var i Author
+func (q *Queries) GetPerson(ctx context.Context, id int64) (Person, error) {
+	row := q.db.QueryRowContext(ctx, getPerson, id)
+	var i Person
 	err := row.Scan(&i.ID, &i.Name)
 	return i, err
 }
 
-const listAuthors = `-- name: ListAuthors :many
-SELECT id, name FROM authors
+const listPersons = `-- name: ListPersons :many
+SELECT id, name FROM persons
 ORDER BY name
 `
 
-func (q *Queries) ListAuthors(ctx context.Context) ([]Author, error) {
-	rows, err := q.db.QueryContext(ctx, listAuthors)
+func (q *Queries) ListPersons(ctx context.Context) ([]Person, error) {
+	rows, err := q.db.QueryContext(ctx, listPersons)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Author
+	var items []Person
 	for rows.Next() {
-		var i Author
+		var i Person
 		if err := rows.Scan(&i.ID, &i.Name); err != nil {
 			return nil, err
 		}
@@ -75,19 +75,19 @@ func (q *Queries) ListAuthors(ctx context.Context) ([]Author, error) {
 	return items, nil
 }
 
-const updateAuthor = `-- name: UpdateAuthor :exec
-UPDATE authors
+const updatePerson = `-- name: UpdatePerson :exec
+UPDATE persons
 set name = ?
 WHERE id = ?
 RETURNING id, name
 `
 
-type UpdateAuthorParams struct {
+type UpdatePersonParams struct {
 	Name string
 	ID   int64
 }
 
-func (q *Queries) UpdateAuthor(ctx context.Context, arg UpdateAuthorParams) error {
-	_, err := q.db.ExecContext(ctx, updateAuthor, arg.Name, arg.ID)
+func (q *Queries) UpdatePerson(ctx context.Context, arg UpdatePersonParams) error {
+	_, err := q.db.ExecContext(ctx, updatePerson, arg.Name, arg.ID)
 	return err
 }

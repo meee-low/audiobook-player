@@ -4,7 +4,63 @@
 
 package db
 
-type Author struct {
+import (
+	"database/sql"
+)
+
+type AuthorsBook struct {
+	AuthorID int64
+	BookID   int64
+}
+
+type Book struct {
+	ID    int64
+	Title string
+}
+
+type BooksFile struct {
+	ID             int64
+	Order          sql.NullInt64
+	ConcreteBookID int64
+	FileID         int64
+	Foreign        interface{}
+}
+
+type ConcreteBook struct {
+	ID     int64
+	BookID int64
+}
+
+type File struct {
+	ID         int64
+	Name       string
+	Extension  string
+	Seconds    int64
+	ParentPath int64
+}
+
+type NarratorsBook struct {
+	NarratorID int64
+	BookID     int64
+}
+
+type Path struct {
+	ID   int64
+	Path string
+}
+
+type Person struct {
 	ID   int64
 	Name string
+}
+
+type Series struct {
+	ID   int64
+	Name string
+}
+
+type SeriesBook struct {
+	SeriesID int64
+	BookID   int64
+	Order    int64
 }
