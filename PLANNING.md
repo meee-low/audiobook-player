@@ -1,7 +1,7 @@
 This file holds the TODOs/Roadmap
 
 ## Basics:
-- [x] Play an audiofile
+- [x] Play an audio file
 - [ ] Pause, skip forward, skip backward etc.
 - [ ] Support for multiple audio formats (mp3, m4b, m4a, ...)
 - [ ] Scan audiofiles in the chosen directories. Organize them into a database.
