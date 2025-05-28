@@ -64,7 +64,9 @@ func print_filemetadata(fp string) {
 }
 
 func printMetadata(m tag.Metadata) {
-	// Copy-pasted from the reference
+	// Copy-pasted from reference:
+	// https://github.com/dhowden/tag/blob/master/cmd/tag/main.go
+
 	fmt.Printf("Metadata Format: %v\n", m.Format())
 	fmt.Printf("File Type: %v\n", m.FileType())
 
