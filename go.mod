@@ -5,6 +5,7 @@ go 1.24.3
 require (
 	github.com/charmbracelet/bubbles v0.21.0
 	github.com/charmbracelet/bubbletea v1.3.5
+	github.com/dhowden/tag v0.0.0-20240417053706-3d75831295e8
 	github.com/faiface/beep v1.1.0
 	github.com/pelletier/go-toml/v2 v2.2.4
 )
