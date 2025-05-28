@@ -34,7 +34,7 @@ func main() {
 		if d.IsDir() {
 			return nil
 		}
-		fmt.Printf("File: %s\n", path)
+		fmt.Printf("File: %s\n", d.Name())
 		absPath, err := filepath.Abs(path)
 		if err != nil {
 			return err
