@@ -66,7 +66,6 @@ func print_filemetadata(fp string) {
 func printMetadata(m tag.Metadata) {
 	// Copy-pasted from reference:
 	// https://github.com/dhowden/tag/blob/master/cmd/tag/main.go
-
 	fmt.Printf("Metadata Format: %v\n", m.Format())
 	fmt.Printf("File Type: %v\n", m.FileType())
 
@@ -86,4 +85,94 @@ func printMetadata(m tag.Metadata) {
 	fmt.Printf(" Picture: %v\n", m.Picture())
 	fmt.Printf(" Lyrics: %v\n", m.Lyrics())
 	fmt.Printf(" Comment: %v\n", m.Comment())
+}
+
+type DatabasePrep struct {
+	fileParentPath string
+	fileName       string
+	fileSizeBytes  int64
+	fileExt        string
+	fileChecksum   string
+	title          string
+	album          string
+	artists        []string
+	year           int
+	track          int
+	trackCount     int
+	disc           int
+	discCount      int
+}
+
+func BlankDBPrep() DatabasePrep {
+	return DatabasePrep{}
+}
+
+func FileToDB(fp string) (DatabasePrep, error) {
+	file, err := os.Open(fp)
+	if err != nil {
+		return BlankDBPrep(), err
+	}
+	defer file.Close()
+
+	metadata, err := tag.ReadFrom(file)
+	if err != nil {
+		return BlankDBPrep(), err
+	}
+	checkSum, err := tag.Sum(file)
+	if err != nil {
+		return BlankDBPrep(), err
+	}
+
+	abs, err := filepath.Abs(fp)
+	if err != nil {
+		return BlankDBPrep(), err
+	}
+
+	base := filepath.Base(abs)
+	parent := filepath.Dir(abs)
+	ext := filepath.Ext(abs)
+	fileInfo, err := file.Stat()
+	if err != nil {
+		return BlankDBPrep(), err
+	}
+	fileSize := fileInfo.Size()
+
+	track, trackCount := metadata.Track()
+	disc, discCount := metadata.Disc()
+
+	result := DatabasePrep{
+		fileParentPath: parent,
+		fileName:       base,
+		fileSizeBytes:  fileSize,
+		fileExt:        ext,
+		fileChecksum:   checkSum,
+		title:          metadata.Title(),
+		album:          metadata.Album(),
+		artists:        splitArtists(metadata.Artist(), metadata.AlbumArtist()),
+		year:           metadata.Year(),
+		track:          track,
+		trackCount:     trackCount,
+		disc:           disc,
+		discCount:      discCount,
+	}
+	return result, nil
+}
+
+func saveToDB(dbp DatabasePrep) {
+	/**
+		dbfileinfo <- fileParentPath, fileName, fileSizeBytes, fileExt, fileChecksum
+	    book <- title, year
+	    concrete_book <- ...
+	    persons <- artists
+	    joins...
+	**/
+}
+
+func splitArtists(artists string, albumArtists string) []string {
+	// TODO: use a set and use albumArtists
+	s := strings.Join([]string{artists, albumArtists}, "%!")
+	s = strings.ReplaceAll(artists, ";", "%!")
+	s = strings.ReplaceAll(artists, "&", "%!")
+
+	return strings.Split(s, "%!")
 }

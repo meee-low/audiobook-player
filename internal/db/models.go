@@ -14,8 +14,9 @@ type AuthorsBook struct {
 }
 
 type Book struct {
-	ID    int64
-	Title string
+	ID          int64
+	Title       string
+	ReleaseYear sql.NullInt64
 }
 
 type BooksFile struct {
@@ -27,8 +28,9 @@ type BooksFile struct {
 }
 
 type ConcreteBook struct {
-	ID     int64
-	BookID int64
+	ID            int64
+	BookID        int64
+	YearAudiobook sql.NullInt64
 }
 
 type File struct {

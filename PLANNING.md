@@ -47,3 +47,18 @@ Need some way to track progress in different chapters. So if it's an anthology, 
 - [ ] Integration with calibre for metadata
 - [ ] Cover art if the terminal supports it.
 
+## TUI library view:
+### Sorting options:
+- All books
+    - Order by Author
+    - Order by Series
+    - Order by BookTitle
+    - Order by Genre
+    - Order by Read Status
+- Select Author -> Order by Series/SeriesNumber/Year
+- Select Genre -> Order by Author/Series/SeriesNumber/Year
+- Select Series -> Order by SeriesNumber/Year
+
+### Editing:
+- Rename authors/books/genre/series/seriesnumber
+- mark as read
