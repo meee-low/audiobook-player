@@ -8,6 +8,11 @@ import (
 	"database/sql"
 )
 
+type Alias struct {
+	ID   int64
+	Name string
+}
+
 type AuthorsBook struct {
 	AuthorID int64
 	BookID   int64
@@ -19,26 +24,44 @@ type Book struct {
 	ReleaseYear sql.NullInt64
 }
 
+type BookStatus struct {
+	BookID     int64
+	LastPlayed sql.NullTime
+	Status     int64
+}
+
+type BooksAlias struct {
+	BookID  int64
+	AliasID int64
+}
+
 type BooksFile struct {
 	ID             int64
-	Order          sql.NullInt64
+	SequenceNumber sql.NullInt64
 	ConcreteBookID int64
 	FileID         int64
-	Foreign        interface{}
 }
 
 type ConcreteBook struct {
 	ID            int64
 	BookID        int64
+	ParentPathID  int64
 	YearAudiobook sql.NullInt64
 }
 
 type File struct {
-	ID         int64
-	Name       string
-	Extension  string
-	Seconds    int64
-	ParentPath int64
+	ID           int64
+	Name         string
+	Extension    string
+	Seconds      int64
+	ParentPathID int64
+	Checksum     sql.NullString
+	Filesize     sql.NullInt64
+}
+
+type FileProgress struct {
+	FileID  int64
+	Seconds int64
 }
 
 type NarratorsBook struct {
@@ -56,13 +79,28 @@ type Person struct {
 	Name string
 }
 
+type PersonsAlias struct {
+	PersonID int64
+	AliasID  int64
+}
+
 type Series struct {
 	ID   int64
 	Name string
 }
 
-type SeriesBook struct {
+type SeriesAlias struct {
 	SeriesID int64
-	BookID   int64
-	Order    int64
+	AliasID  int64
+}
+
+type SeriesBook struct {
+	SeriesID       int64
+	BookID         int64
+	SequenceNumber sql.NullInt64
+}
+
+type StatusLabel struct {
+	ID    int64
+	Label string
 }
