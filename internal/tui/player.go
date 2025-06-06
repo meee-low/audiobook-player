@@ -3,7 +3,7 @@ package tui
 import (
 	"fmt"
 
-	"github.com/faiface/beep"
+	"github.com/gopxl/beep/v2"
 
 	"github.com/charmbracelet/bubbles/progress"
 	tea "github.com/charmbracelet/bubbletea"

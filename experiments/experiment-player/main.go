@@ -1,4 +1,4 @@
-// Taken from: https://github.com/faiface/beep/wiki/Hello,-Beep!
+// Taken from: https://github.com/gopxl/beep/wiki/Hello,-Beep!
 // I am just following the example to understand how to use the library.
 package main
 
@@ -8,9 +8,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/faiface/beep"
-	"github.com/faiface/beep/mp3"
-	"github.com/faiface/beep/speaker"
+	"github.com/gopxl/beep/v2"
+	"github.com/gopxl/beep/v2/mp3"
+	"github.com/gopxl/beep/v2/speaker"
 )
 
 func main() {
